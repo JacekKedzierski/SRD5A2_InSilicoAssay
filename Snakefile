@@ -107,7 +107,8 @@ rule Glide:
         echo "GRIDFILE" {params.home}{input.grid} >> {output.infile}
         echo "LIGANDFILE" {params.home}{input.ligandMae} >> {output.infile}
         echo "PRECISION SP" >> {output.infile}
-
+        """
+        """
         mkdir -p {output.workdir}      
         cd {output.workdir}   
         {params.tool}/glide ../../../{output.infile} -WAIT -HOST "localhost:1" -NJOBS 1
