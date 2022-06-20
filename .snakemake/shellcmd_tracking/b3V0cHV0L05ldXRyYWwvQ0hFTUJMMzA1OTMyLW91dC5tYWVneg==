@@ -1,0 +1,1 @@
+$SCHRODINGER/utilities/ligfilter output/LigPrep/CHEMBL305932.mae -o output/Neutral/CHEMBL305932-out.maegz -f input/Receptor/rules.lff -WAIT -NOJOBID

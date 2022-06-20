@@ -1,0 +1,4 @@
+
+        $SCHRODINGER/run pv_convert.py -m output/EvaluatePosesPv/testosterone.maegz > output/log/GlideDockingMerge/testosterone.log
+        cp output/EvaluatePosesPv/testosterone-out_complex.maegz output/GlideDockingMerge/testosterone-out_complex.maegz
+        

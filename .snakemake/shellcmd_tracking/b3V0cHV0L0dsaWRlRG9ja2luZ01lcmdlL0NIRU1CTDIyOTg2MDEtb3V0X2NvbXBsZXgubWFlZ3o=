@@ -1,0 +1,4 @@
+
+        $SCHRODINGER/run pv_convert.py -m output/EvaluatePosesPv/CHEMBL2298601.maegz > output/log/GlideDockingMerge/CHEMBL2298601.log
+        cp output/EvaluatePosesPv/CHEMBL2298601-out_complex.maegz output/GlideDockingMerge/CHEMBL2298601-out_complex.maegz
+        

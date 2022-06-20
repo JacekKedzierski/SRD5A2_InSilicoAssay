@@ -1,0 +1,10 @@
+
+        echo "FORCEFIELD OPLS_2005" >> output/In/testosterone.in
+        echo "GRIDFILE" /mnt/jacek/jkedzierski/Documents/Projects/SRD5A2/SRD5A2_InSilicoAssay/input/Receptor/SRD5A2.zip >> output/In/testosterone.in
+        echo "LIGANDFILE" /mnt/jacek/jkedzierski/Documents/Projects/SRD5A2/SRD5A2_InSilicoAssay/output/Neutral/testosterone-out.maegz >> output/In/testosterone.in
+        echo "PRECISION SP" >> output/In/testosterone.in
+
+        mkdir -p output/Glide/testosterone      
+        cd output/Glide/testosterone   
+        $SCHRODINGER/glide ../../../output/In/testosterone.in -WAIT -HOST "localhost:1" -NJOBS 1
+        

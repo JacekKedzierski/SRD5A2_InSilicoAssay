@@ -1,0 +1,1 @@
+$SCHRODINGER/utilities/ligfilter output/LigPrep/testosterone.mae -o output/Neutral/testosterone-out.maegz -f input/Receptor/rules.lff -WAIT -NOJOBID
