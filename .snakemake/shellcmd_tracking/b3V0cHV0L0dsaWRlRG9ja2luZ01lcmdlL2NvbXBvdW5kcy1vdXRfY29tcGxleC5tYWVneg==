@@ -1,0 +1,4 @@
+
+        $SCHRODINGER/run pv_convert.py -m output/EvaluatePosesPv/compounds.maegz > output/log/GlideDockingMergePv/compounds.log
+        cp /home/jacek/data/Projects/SRD5A2/SRD5A2_InSilicoAssay/output/EvaluatePosesPv/compounds-out_complex.maegz /home/jacek/data/Projects/SRD5A2/SRD5A2_InSilicoAssay/output/GlideDockingMerge/compounds-out_complex.maegz
+        

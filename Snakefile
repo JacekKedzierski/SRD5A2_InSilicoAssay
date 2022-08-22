@@ -12,7 +12,7 @@ wildcard_constraints:
 
 rule target:
     input:
-        expand("output/GlideDockingMerge/compounds-out_complex.maegz", ligand=ligands)
+        "output/log/HappyHB/Done.txt"
 
 rule LigPrepMae:
     input:
@@ -22,7 +22,7 @@ rule LigPrepMae:
     log:
         "output/LigPrep/compounds.log"
     params:
-        schrodinger="/opt/schrodinger2020-2"
+        schrodinger="$SCHRODINGER"
 
     shell:
         "{params.schrodinger}/ligprep -icsv {input} -osd {output} -g -ph 7.4 -pht 0.1 -epik -s 1 -t 1 -WAIT -NOJOBID > {log}"
@@ -33,7 +33,7 @@ rule Neutral:
     output:
         "output/Neutral/compounds-out.maegz"
     params:
-        schrodinger="/opt/schrodinger2020-2"
+        schrodinger="$SCHRODINGER"
 
     shell:
         "{params.schrodinger}/utilities/ligfilter {input} -o {output} -f input/Receptor/rules.lff -WAIT -NOJOBID"      
@@ -47,7 +47,7 @@ rule Glide:
         infile="output/In/compounds.in",
         pose="output/Glide/compounds_pv.maegz"
     params:
-        tool="/opt/schrodinger2020-2",
+        tool="$SCHRODINGER",
         home=cwd
     log: 
         "output/log/Glide/compounds.log"
@@ -71,7 +71,7 @@ rule EvaluatePosesPv:
     log:
         "output/log/EvaluatePosesPv/compounds.log"
     params:
-        schrodinger="/opt/schrodinger2020-2",
+        schrodinger="$SCHRODINGER",
         home = cwd
     shell:
         "{params.schrodinger}/run pose_filter.py {params.home}{input} {output} -a 'res.num 57' -hbond 1 -a 'res.num 91' -hbond 2 -m all -lig_asl 'SMARTS. [R]=O' -hbond_dist_max 2.5 -hbond_donor_angle 90.0 -hbond_acceptor_angle 60.0 -contact_dist_max 5.0 -ring_dist_max 5.0 -aromatic_dist_max 5.0 -WAIT -NOJOBID > {log}"
@@ -85,10 +85,38 @@ rule GlideDockingMergePv:
     log:
         "output/log/GlideDockingMergePv/compounds.log"
     params:
-        schrodinger="/opt/schrodinger2020-2",
+        schrodinger="$SCHRODINGER",
         home = cwd
     shell:
         """
         {params.schrodinger}/run pv_convert.py -m {input} > {log}
         cp {params.home}{output.tmp} {params.home}{output.end}
+        """
+
+rule MaeGz2Pdb:
+    input:
+        "output/GlideDockingMerge/compounds-out_complex.maegz"
+    log:
+        tmp="compounds-out_complex.pdb",
+        end="output/MaeGz2Pdb/compounds-out_complex.pdb"
+    output:
+        "output/log/MaeGz2Pdb/compounds.log"
+    params:
+        schrodinger="$SCHRODINGER",
+        home=cwd
+    shell:
+        """
+        {params.schrodinger}/utilities/structconvert  -imae {input} -opdb {log.tmp} > {output}
+        mv *.pdb output/MaeGz2Pdb/.
+        """
+
+rule HappyHB:
+    input:
+        "output/log/MaeGz2Pdb/compounds.log"
+    output:
+        "output/log/HappyHB/Done.txt"
+    shell:
+        """
+        python3 src/HappyLoop.py --directory output/MaeGz2Pdb
+        echo Done > output/log/HappyHB/Done.txt
         """

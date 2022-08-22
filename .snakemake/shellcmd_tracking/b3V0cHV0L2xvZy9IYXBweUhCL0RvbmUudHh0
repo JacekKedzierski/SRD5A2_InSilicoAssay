@@ -1,0 +1,4 @@
+
+        python3 src/HappyLoop.py --directory output/MaeGz2Pdb
+        echo Done > output/log/HappyHB/Done.txt
+        
