@@ -1,7 +1,5 @@
 # SRD5A2 InSilicoAssay
 
-# SRD5A2 InSilicoAssay
-
 **Description:**
 
 SRD5A2 InSilicoAssay is a computational tool designed for the identification of inhibitors of the SRD5A2 enzyme through virtual screening. This README provides an overview of how to use the tool, including setup, input requirements, execution, and additional background on the target's physiology.
